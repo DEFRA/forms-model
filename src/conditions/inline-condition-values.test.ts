@@ -1,6 +1,4 @@
-// @ts-nocheck
-
-import { ConditionValue, conditionValueFrom } from '../..'
+import { ConditionValue, conditionValueFrom } from '..'
 
 describe('inline condition values', () => {
   test('can deserialize a Value object from plain old JSON', () => {

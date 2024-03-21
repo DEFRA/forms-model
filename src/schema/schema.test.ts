@@ -1,6 +1,4 @@
-// @ts-nocheck
-
-import { Schema } from '../schema'
+import { Schema } from './schema'
 
 const baseConfiguration = {
   metadata: {},

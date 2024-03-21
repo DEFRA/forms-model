@@ -1,4 +1,4 @@
-import { isMultipleApiKey } from '../types'
+import { isMultipleApiKey } from './types'
 
 test('isMultipleApiKey correctly typeguards', () => {
   expect(isMultipleApiKey('abc')).toBeFalsy()

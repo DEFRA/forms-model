@@ -1,6 +1,4 @@
-// @ts-nocheck
-
-import { FormConfiguration } from '../'
+import { FormConfiguration } from '.'
 
 describe('Form configuration', () => {
   test('should return provided items if provided', () => {

@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import {
   Coordinator,
   ConditionsModel,
@@ -10,8 +8,8 @@ import {
   dateUnits,
   RelativeTimeValue,
   ConditionValue
-} from '../..'
-import { ConditionRef } from '..'
+} from '..'
+import { ConditionRef } from '.'
 
 describe('inline condition model', () => {
   let underTest

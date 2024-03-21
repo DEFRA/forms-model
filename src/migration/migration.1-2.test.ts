@@ -1,5 +1,5 @@
-import { migrate } from '../migration.1-2'
-jest.mock('../../utils/helpers', () => {
+import { migrate } from './migration.1-2'
+jest.mock('../utils/helpers', () => {
   return {
     __esModule: true,
     nanoid: jest.fn().mockReturnValueOnce('id-1').mockReturnValueOnce('id-2')

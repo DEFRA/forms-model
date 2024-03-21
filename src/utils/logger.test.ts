@@ -1,6 +1,4 @@
-// @ts-nocheck
-
-import { Logger } from '../logger'
+import { Logger } from './logger'
 
 describe('logger', () => {
   const server = {
