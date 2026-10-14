@@ -145,6 +145,44 @@ Available schema files include:
 
 ## Development
 
+This package was previously developed as the `model` workspace of [forms-designer](https://github.com/DEFRA/forms-designer).
+
+### Setup
+
+```shell
+nvm use
+npm install
+npm run build
+```
+
+### Common commands
+
+| Command          | Description                                                      |
+| ---------------- | ---------------------------------------------------------------- |
+| `npm run build`  | Build the type declarations, JavaScript modules and JSON schemas |
+| `npm run lint`   | Run EditorConfig, ESLint and TypeScript checks                   |
+| `npm run format` | Format files with Prettier                                       |
+| `npm test`       | Run the unit tests with coverage                                 |
+
+### Testing changes in a consuming service
+
+To test unpublished changes in a consuming service (for example forms-designer), build this package and link it:
+
+```shell
+# In forms-model
+npm run build
+npm link
+
+# In the consuming service
+npm link @defra/forms-model
+```
+
+Run `npm run build` in forms-model after each change so that the consuming service picks up the new `dist` output. Run `npm unlink @defra/forms-model && npm install` in the consuming service to return to the published version.
+
+### Publishing
+
+Merging to `main` with changes to `src/`, `scripts/`, `babel.config.*` or `.browserslistrc` runs the [Publish](.github/workflows/publish.yml) workflow, which increments the patch version and publishes the package to npm.
+
 ### Test Coverage
 
 Unit test coverage threshold, code coverage below which build will fail is set by using jest config, at the moment line coverage threshold is set as 92%, see [jest.config.js](jest.config.js)

@@ -9,17 +9,10 @@ module.exports = {
   plugins: [
     [
       'module-resolver',
-      NODE_ENV === 'test'
-        ? {
-            // Relative to project
-            root: ['../'],
-            alias: { '~': './model' }
-          }
-        : {
-            // Relative to workspace
-            root: ['./'],
-            alias: { '~': '.' }
-          }
+      {
+        root: ['./'],
+        alias: { '~': '.' }
+      }
     ]
   ],
   presets: [
