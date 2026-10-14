@@ -90,8 +90,10 @@ export function getSchemaMap() {
     'max-past-schema': 'maxPastSchema',
 
     // Common schemas
-    'search-options-schema': 'searchOptionsSchema',
-    'query-options-schema': 'queryOptionsSchema',
+    'search-options-schema-ui': 'searchOptionsSchemaUI',
+    'search-options-schema-manager': 'searchOptionsSchemaManager',
+    'query-options-schema-ui': 'queryOptionsSchemaUI',
+    'query-options-schema-manager': 'queryOptionsSchemaManager',
     'pagination-options-schema': 'paginationOptionsSchema',
     'sorting-options-schema': 'sortingOptionsSchema'
   }
@@ -110,6 +112,9 @@ export function processSchema(fileName, schemaName, model) {
     const joiSchema = model[schemaName]
 
     if (!joiSchema) {
+      console.error(
+        `✗ Failed to process ${fileName}: export '${schemaName}' not found in model`
+      )
       return false
     }
 
@@ -198,7 +203,7 @@ export async function generateSchemas() {
     console.log('\nSchema generation complete!')
     console.log(`✓ Successfully generated ${successCount} schemas`)
     if (errorCount > 0) {
-      console.log(`✗ Failed to generate ${errorCount} schemas`)
+      throw new Error(`Failed to generate ${errorCount} schemas`)
     }
 
     return { successCount, errorCount }

@@ -138,8 +138,10 @@ Available schema files include:
 
 ##### Common Schemas
 
-- `search-options-schema.json` - Search options validation
-- `query-options-schema.json` - Query options validation
+- `search-options-schema-ui.json` - Search options validation (forms-designer)
+- `search-options-schema-manager.json` - Search options validation (forms-manager)
+- `query-options-schema-ui.json` - Query options validation (forms-designer)
+- `query-options-schema-manager.json` - Query options validation (forms-manager)
 - `pagination-options-schema.json` - Pagination options validation
 - `sorting-options-schema.json` - Sorting options validation
 

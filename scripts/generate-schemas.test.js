@@ -79,6 +79,16 @@ describe('Generate Schemas Script', () => {
       )
     })
 
+    it('should only reference schemas exported by the model', async () => {
+      const model = await import('~/src/index.js')
+
+      const missing = Object.entries(getSchemaMap())
+        .filter(([, schemaName]) => !(schemaName in model))
+        .map(([fileName, schemaName]) => `${fileName}: ${schemaName}`)
+
+      expect(missing).toEqual([])
+    })
+
     it('should clean JSON files from schema directory', () => {
       const originalConsoleLog = console.log
       console.log = jest.fn()
@@ -235,7 +245,9 @@ describe('Generate Schemas Script', () => {
         mockModel
       )
       expect(result).toBe(false)
-      expect(console.error).not.toHaveBeenCalled()
+      expect(console.error).toHaveBeenCalledWith(
+        "✗ Failed to process non-existent: export 'nonExistentSchema' not found in model"
+      )
 
       console.error = originalConsoleError
     })
