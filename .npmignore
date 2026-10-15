@@ -1,0 +1,10 @@
+/*.config.*
+*.{jest,test}?(.d).{js,ts}?(.map)
+.*
+tsconfig.*
+scripts/
+coverage/
+sonar-project.properties
+
+# schemas directory intended to be published
+!schemas/
