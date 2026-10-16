@@ -41,6 +41,7 @@ export default {
   // See: https://jestjs.io/docs/ecmascript-modules
   transformIgnorePatterns: [
     `node_modules/(?!${[
+      '@joi/date', // Supports ESM only
       'nanoid', // Supports ESM only
       'slug' // Supports ESM only
     ].join('|')}/)`
