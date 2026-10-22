@@ -176,7 +176,8 @@ export const saveAndExitV2MessageData = Joi.object<SaveAndExitV2MessageData>()
       title: Joi.string().required(),
       status: Joi.string().valid(FormStatus.Draft, FormStatus.Live).required(),
       isPreview: Joi.boolean().required(),
-      baseUrl: Joi.string().required()
+      baseUrl: Joi.string().required(),
+      language: Joi.string().optional()
     }).label('SaveAndExitForm'),
     email: Joi.string().required(),
     auth: Joi.object({
