@@ -200,6 +200,21 @@ export interface FormOptions {
   disableUserFeedback?: boolean
 }
 
+export interface FormDefinitionMetadataOptions {
+  /**
+   * Allow people to start a new submission with the answers from their
+   * previous submission already filled in
+   */
+  allowCopy?: boolean
+}
+
+/**
+ * Custom metadata for the form. Other keys (e.g. translations) are allowed.
+ */
+export interface FormDefinitionMetadata extends Record<string, unknown> {
+  options?: FormDefinitionMetadataOptions
+}
+
 /**
  * Interface for `formDefinitionSchema` Joi schema
  */
@@ -216,7 +231,7 @@ export interface FormDefinition {
   phaseBanner?: PhaseBanner
   declaration?: string // Deprecated in v2
   skipSummary?: never
-  metadata?: Record<string, unknown>
+  metadata?: FormDefinitionMetadata
   options?: FormOptions
   outputEmail?: string // Deprecated
   output?: {

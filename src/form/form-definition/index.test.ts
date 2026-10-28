@@ -125,6 +125,40 @@ describe('Form definition schema', () => {
     })
   })
 
+  describe('Metadata', () => {
+    it.each([true, false])(
+      'should allow metadata option allowCopy: %s',
+      (allowCopy) => {
+        definition.metadata = {
+          translations: { cy: {} },
+          options: { allowCopy }
+        }
+
+        const result = formDefinitionSchema.validate(definition, {
+          abortEarly: false
+        })
+
+        expect(result.error).toBeUndefined()
+        expect(result.value.metadata?.options?.allowCopy).toBe(allowCopy)
+      }
+    )
+
+    it('should reject a non-boolean metadata option allowCopy', () => {
+      definition.metadata = {
+        // @ts-expect-error - Allow invalid property for test
+        options: { allowCopy: 'maybe' }
+      }
+
+      const result = formDefinitionSchema.validate(definition, {
+        abortEarly: false
+      })
+
+      expect(result.error?.message).toContain(
+        '"metadata.options.allowCopy" must be a boolean'
+      )
+    })
+  })
+
   describe('Summary', () => {
     it("should remove legacy 'skipSummary' flag", () => {
       // @ts-expect-error - Allow invalid property for test

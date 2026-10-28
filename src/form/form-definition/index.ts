@@ -1183,6 +1183,16 @@ const optionsSchema = Joi.object({
   disableUserFeedback: Joi.boolean().default(false)
 }).description('Options for the form')
 
+const metadataOptionsSchema = Joi.object({
+  allowCopy: Joi.boolean()
+    .optional()
+    .description(
+      'Allow people to start a new submission with the answers from their previous submission'
+    )
+})
+  .unknown()
+  .description('Options held in the form metadata')
+
 const outputSchema = Joi.object<FormDefinition['output']>()
   .description('Configuration for form submission output')
   .keys({
@@ -1316,7 +1326,10 @@ export const formDefinitionSchema = Joi.object<FormDefinition>()
       .unique('name')
       .unique('title')
       .description('Reusable lists of options for select components'),
-    metadata: Joi.object({ a: Joi.any() })
+    metadata: Joi.object({
+      a: Joi.any(),
+      options: metadataOptionsSchema.optional()
+    })
       .unknown()
       .optional()
       .description('Custom metadata for the form'),
