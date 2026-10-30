@@ -49,10 +49,10 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.29.7",
-    "@babel/core": "^7.29.7",
-    "@babel/preset-env": "^7.29.7",
-    "@babel/preset-typescript": "^7.29.7",
+    "@babel/cli": "^8.0.6",
+    "@babel/core": "^8.0.9",
+    "@babel/preset-env": "^8.0.7",
+    "@babel/preset-typescript": "^8.0.7",
     "@types/jest": "^29.5.14",
     "@types/node": "^24.19.2",
     "@types/slug": "^5.0.9",
@@ -60,7 +60,7 @@
     "@typescript-eslint/parser": "^8.27.0",
     "babel-plugin-module-resolver": "^5.0.3",
     "babel-plugin-replace-import-extension": "^1.1.5",
-    "babel-plugin-transform-import-meta": "^2.3.3",
+    "babel-plugin-transform-import-meta": "^3.1.0",
     "editorconfig-checker": "^6.2.0",
     "eslint": "^9.39.3",
     "eslint-config-prettier": "^10.1.8",
@@ -74,8 +74,8 @@
     "lint-staged": "^17.0.7",
     "neostandard": "^0.12.2",
     "prettier": "^3.8.3",
-    "tsc-alias": "^1.8.11",
-    "typescript": "^5.8.2",
+    "tsc-alias": "^1.9.9",
+    "typescript": "^7.0.2",
     "typescript-eslint": "^8.56.1"
   },
   "peerDependencies": {
