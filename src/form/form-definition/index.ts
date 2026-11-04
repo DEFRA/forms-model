@@ -1403,6 +1403,7 @@ export const formDefinitionV2Schema = formDefinitionSchema
   .description('Form definition schema for V2')
 
 export {
+  FORM_ACTION_COPY,
   MAX_NUMBER_OF_REPEAT_ITEMS,
   MIN_NUMBER_OF_REPEAT_ITEMS
 } from '~/src/form/form-definition/constants.js'

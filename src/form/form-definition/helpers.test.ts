@@ -1,7 +1,9 @@
 import { ComponentType } from '~/src/components/enums.js'
 import { type ConditionListItemRefValueDataV2 } from '~/src/conditions/types.js'
 import {
+  getFormAction,
   getHiddenFields,
+  isAllowCopyEnabled,
   isConditionListItemRefValueData,
   isDuplicateOutput,
   isFeedbackForm,
@@ -14,6 +16,7 @@ import {
 import { ControllerType } from '~/src/pages/enums.js'
 import {
   buildCheckboxComponent,
+  buildDefinition,
   buildQuestionPage,
   buildTextFieldComponent
 } from '~/src/stubs.js'
@@ -348,6 +351,77 @@ describe('helpers', () => {
           emailAddress: 'someone-else@example.gov.uk'
         })
       ).toBe(false)
+    })
+  })
+
+  describe('isAllowCopyEnabled', () => {
+    const buildFormDefinitionWithOptions = (options: unknown) => {
+      const formDefinition = buildDefinition()
+      Object.assign(formDefinition, { metadata: { options } })
+      return formDefinition
+    }
+
+    it('should return true when copying answers is enabled', () => {
+      expect(
+        isAllowCopyEnabled(buildFormDefinitionWithOptions({ allowCopy: true }))
+      ).toBe(true)
+    })
+
+    it.each([
+      undefined,
+      null,
+      'invalid',
+      {},
+      { allowCopy: false },
+      { allowCopy: 'true' }
+    ])('should return false when copy is not enabled (%p)', (options) => {
+      expect(isAllowCopyEnabled(buildFormDefinitionWithOptions(options))).toBe(
+        false
+      )
+    })
+
+    it('should return false when options are absent', () => {
+      expect(isAllowCopyEnabled(buildDefinition())).toBe(false)
+    })
+  })
+  describe('getFormAction', () => {
+    it('should return the copy action when copying is enabled', () => {
+      const formDefinition = buildDefinition()
+      Object.assign(formDefinition, {
+        metadata: { options: { allowCopy: true } }
+      })
+      const message = {
+        meta: {}
+      } as {
+        meta: {
+          custom?: { actionName?: string; actionReferenceNumber?: string }
+        }
+      }
+      Object.assign(message.meta, {
+        custom: {
+          actionName: 'copy',
+          actionReferenceNumber: '123-456-789'
+        }
+      })
+
+      expect(getFormAction(message.meta, formDefinition)).toEqual({
+        name: 'copy',
+        referenceNumber: '123-456-789'
+      })
+    })
+
+    it('should return undefined when the message is not a copy action', () => {
+      const message = {
+        meta: {}
+      }
+      expect(getFormAction(message.meta, buildDefinition())).toBeUndefined()
+    })
+
+    it('should return undefined when the message is missing any action', () => {
+      const message = {
+        meta: undefined
+      }
+      expect(getFormAction(message.meta, buildDefinition())).toBeUndefined()
     })
   })
 })
