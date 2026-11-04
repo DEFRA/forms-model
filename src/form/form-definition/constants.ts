@@ -1,2 +1,4 @@
 export const MIN_NUMBER_OF_REPEAT_ITEMS = 1
 export const MAX_NUMBER_OF_REPEAT_ITEMS = 200
+
+export const FORM_ACTION_COPY = 'copy'

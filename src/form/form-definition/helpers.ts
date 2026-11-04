@@ -1,6 +1,7 @@
 import { ComponentType } from '~/src/components/enums.js'
 import { type ComponentDef } from '~/src/components/types.js'
 import { type ConditionListItemRefValueDataV2 } from '~/src/conditions/types.js'
+import { FORM_ACTION_COPY } from '~/src/form/form-definition/constants.js'
 import {
   type FormDefinition,
   type Output
@@ -121,4 +122,51 @@ export function isFeedbackForm(definition: FormDefinition | undefined) {
   return definition?.pages
     ? definition.pages.some((p) => p.controller === feedback)
     : false
+}
+
+/**
+ * Checks whether the form allows answers to be reused from a previous
+ * submission, as set by the metadata.options.allowCopy flag. forms-model does
+ * not define metadata.options, so its type is checked here
+ * @param {FormDefinition} formDefinition
+ * @returns {boolean}
+ */
+export function isAllowCopyEnabled(formDefinition: FormDefinition): boolean {
+  const options = formDefinition.metadata?.options
+
+  return (
+    typeof options === 'object' &&
+    options !== null &&
+    'allowCopy' in options &&
+    options.allowCopy === true
+  )
+}
+
+/**
+ * Retrieves the action details of the form submission, if any.
+ * @param {{ custom?: { actionName?: string, actionReferenceNumber?: string } }} messageMeta
+ * @param {FormDefinition} formDefinition
+ * @returns
+ */
+export function getFormAction(
+  messageMeta:
+    | {
+        custom?: { actionName?: string; actionReferenceNumber?: string }
+      }
+    | undefined,
+  formDefinition: FormDefinition
+) {
+  // 'Copy' action
+  if (
+    isAllowCopyEnabled(formDefinition) &&
+    messageMeta?.custom?.actionName === FORM_ACTION_COPY
+  ) {
+    return {
+      name: FORM_ACTION_COPY,
+      referenceNumber:
+        /** @type {string} */ messageMeta.custom.actionReferenceNumber
+    }
+  }
+
+  return undefined
 }
