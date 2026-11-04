@@ -159,7 +159,8 @@ export function getFormAction(
   // 'Copy' action
   if (
     isAllowCopyEnabled(formDefinition) &&
-    messageMeta?.custom?.actionName === FORM_ACTION_COPY
+    messageMeta?.custom?.actionName === FORM_ACTION_COPY &&
+    messageMeta.custom.actionReferenceNumber
   ) {
     return {
       name: FORM_ACTION_COPY,
