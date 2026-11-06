@@ -248,6 +248,18 @@ export interface AuditUser {
   displayName: string
 }
 
+export interface IdentityMessageData {
+  accountId?: string
+  email?: string
+  phone?: string
+  target?: string
+  uid?: string
+  changed?: {
+    old: string
+    new: string
+  }
+}
+
 export interface FormsBackupRequestedMessageData {
   totalForms: number
   durationMs: number
@@ -271,6 +283,7 @@ export type MessageData =
   | FormsBackupRequestedMessageData
   | FormSecretBaseMessageData
   | DlqActionMessageData
+  | IdentityMessageData
 
 export interface MessageBase {
   schemaVersion: AuditEventMessageSchemaVersion
@@ -298,6 +311,10 @@ export interface EntitlementMessageBase extends MessageBase {
 
 export interface AuthenticationMessageBase extends MessageBase {
   source: AuditEventMessageSource.AUTHENTICATION
+}
+
+export interface IdentityMessageBase extends MessageBase {
+  source: AuditEventMessageSource.FORMS_IDENTITY
 }
 
 export interface FormCreatedMessage extends ManagerMessageBase {
@@ -526,6 +543,66 @@ export interface FormSecretSavedMessage extends ManagerMessageBase {
   data: FormSecretBaseMessageData
 }
 
+export interface IdentitySignInSuccessfulMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_SIGN_IN_SUCCESSFUL
+  data: IdentityMessageData
+}
+
+export interface IdentitySignInUnsuccessfulMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_SIGN_IN_UNSUCCESSFUL
+  data: IdentityMessageData
+}
+
+export interface IdentitySignOutMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_SIGN_OUT
+  data: IdentityMessageData
+}
+
+export interface IdentityRegistrationMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_REGISTRATION
+  data: IdentityMessageData
+}
+
+export interface IdentityTooManyOtpsRequestedMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_TOO_MANY_OTPS_REQUESTED
+  data: IdentityMessageData
+}
+
+export interface IdentityIncorrectCodeEnteredMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_INCORRECT_CODE_ENTERED
+  data: IdentityMessageData
+}
+
+export interface IdentityIncorrectCodeLockoutMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_INCORRECT_CODE_LOCKOUT
+  data: IdentityMessageData
+}
+
+export interface IdentityAccountDeletionMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_ACCOUNT_DELETION
+  data: IdentityMessageData
+}
+
+export interface IdentityEmailAddressUpdatedMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_EMAIL_ADDRESS_UPDATED
+  data: IdentityMessageData
+}
+
+export interface IdentityPhoneNumberUpdatedMessage extends IdentityMessageBase {
+  category: AuditEventMessageCategory.AUTHENTICATION
+  type: AuditEventMessageType.IDENTITY_PHONE_NUMBER_UPDATED
+  data: IdentityMessageData
+}
+
 export type AuditMessage =
   | FormCreatedMessage
   | FormTitleUpdatedMessage
@@ -565,6 +642,16 @@ export type AuditMessage =
   | FormSecretDeletedMessage
   | FormSecretSavedMessage
   | DlqActionMessage
+  | IdentitySignInSuccessfulMessage
+  | IdentitySignInUnsuccessfulMessage
+  | IdentitySignOutMessage
+  | IdentityRegistrationMessage
+  | IdentityTooManyOtpsRequestedMessage
+  | IdentityIncorrectCodeEnteredMessage
+  | IdentityIncorrectCodeLockoutMessage
+  | IdentityAccountDeletionMessage
+  | IdentityEmailAddressUpdatedMessage
+  | IdentityPhoneNumberUpdatedMessage
 
 export interface AuditEvent {
   message: AuditMessage
