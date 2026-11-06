@@ -348,11 +348,15 @@ export const auditUserSchema = Joi.object<AuditUser>()
   .description('Schema for CREATED_BY audit event')
 
 export const identityMessageData = Joi.object<IdentityMessageData>().keys({
+  // accountId may not always be available
   accountId: Joi.string().optional(),
+  // Email address associated with the identity, if any, or the target for an OTP
   email: Joi.string().optional(),
+  // Phone number associated with the identity, if any, or the target for an OTP
   phone: Joi.string().optional(),
-  target: Joi.string().optional(),
+  // Unique interaction id
   uid: Joi.string().optional(),
+  // Changed fields in the identity, if any have changed
   changed: Joi.object({
     old: Joi.string().required(),
     new: Joi.string().required()
@@ -572,7 +576,6 @@ export const messageSchema = Joi.object<AuditMessage>()
             .trim()
             .valid(
               AuditEventMessageType.IDENTITY_SIGN_IN_SUCCESSFUL,
-              AuditEventMessageType.IDENTITY_SIGN_IN_UNSUCCESSFUL,
               AuditEventMessageType.IDENTITY_SIGN_OUT,
               AuditEventMessageType.IDENTITY_REGISTRATION,
               AuditEventMessageType.IDENTITY_TOO_MANY_OTPS_REQUESTED,

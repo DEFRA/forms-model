@@ -549,12 +549,6 @@ export interface IdentitySignInSuccessfulMessage extends IdentityMessageBase {
   data: IdentityMessageData
 }
 
-export interface IdentitySignInUnsuccessfulMessage extends IdentityMessageBase {
-  category: AuditEventMessageCategory.AUTHENTICATION
-  type: AuditEventMessageType.IDENTITY_SIGN_IN_UNSUCCESSFUL
-  data: IdentityMessageData
-}
-
 export interface IdentitySignOutMessage extends IdentityMessageBase {
   category: AuditEventMessageCategory.AUTHENTICATION
   type: AuditEventMessageType.IDENTITY_SIGN_OUT
@@ -643,7 +637,6 @@ export type AuditMessage =
   | FormSecretSavedMessage
   | DlqActionMessage
   | IdentitySignInSuccessfulMessage
-  | IdentitySignInUnsuccessfulMessage
   | IdentitySignOutMessage
   | IdentityRegistrationMessage
   | IdentityTooManyOtpsRequestedMessage
