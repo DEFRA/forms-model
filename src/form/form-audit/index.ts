@@ -53,7 +53,8 @@ import {
   type FormUpdatedMessageData,
   type FormUploadedChanges,
   type FormUploadedMessageData,
-  type FormsBackupRequestedMessageData
+  type FormsBackupRequestedMessageData,
+  type IdentityMessageData
 } from '~/src/form/form-audit/types.js'
 import { type Output } from '~/src/form/form-definition/types.js'
 import { emailAddressNoUnicodeSchema } from '~/src/form/form-editor/index.js'
@@ -346,6 +347,24 @@ export const auditUserSchema = Joi.object<AuditUser>()
   })
   .description('Schema for CREATED_BY audit event')
 
+export const identityMessageData = Joi.object<IdentityMessageData>().keys({
+  // accountId may not always be available
+  accountId: Joi.string().optional(),
+  // Email address associated with the identity, if any, or the target for an OTP
+  email: Joi.string().optional(),
+  // Phone number associated with the identity, if any, or the target for an OTP
+  phone: Joi.string().optional(),
+  // Purpose of the identity interaction, if any
+  purpose: Joi.string().optional(),
+  // Unique interaction id
+  uid: Joi.string().optional(),
+  // Changed fields in the identity, if any have changed
+  changed: Joi.object({
+    old: Joi.string().required(),
+    new: Joi.string().required()
+  }).optional()
+})
+
 export function formChangesMessageData<T, U extends FormMessageChangesData>(
   schema: ObjectSchema<T>
 ): ObjectSchema<U> {
@@ -553,6 +572,22 @@ export const messageSchema = Joi.object<AuditMessage>()
               AuditEventMessageType.AUTHENTICATION_LOGOUT_DIFFERENT_DEVICE
             ),
           then: authenticationMessageData
+        },
+        {
+          is: Joi.string()
+            .trim()
+            .valid(
+              AuditEventMessageType.IDENTITY_SIGN_IN_SUCCESSFUL,
+              AuditEventMessageType.IDENTITY_SIGN_OUT,
+              AuditEventMessageType.IDENTITY_REGISTRATION,
+              AuditEventMessageType.IDENTITY_TOO_MANY_OTPS_REQUESTED,
+              AuditEventMessageType.IDENTITY_INCORRECT_CODE_ENTERED,
+              AuditEventMessageType.IDENTITY_INCORRECT_CODE_LOCKOUT,
+              AuditEventMessageType.IDENTITY_ACCOUNT_DELETION,
+              AuditEventMessageType.IDENTITY_EMAIL_ADDRESS_UPDATED,
+              AuditEventMessageType.IDENTITY_PHONE_NUMBER_UPDATED
+            ),
+          then: identityMessageData
         },
         {
           is: Joi.string()
