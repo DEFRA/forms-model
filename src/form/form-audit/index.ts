@@ -354,6 +354,8 @@ export const identityMessageData = Joi.object<IdentityMessageData>().keys({
   email: Joi.string().optional(),
   // Phone number associated with the identity, if any, or the target for an OTP
   phone: Joi.string().optional(),
+  // Purpose of the identity interaction, if any
+  purpose: Joi.string().optional(),
   // Unique interaction id
   uid: Joi.string().optional(),
   // Changed fields in the identity, if any have changed

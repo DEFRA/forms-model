@@ -252,7 +252,7 @@ export interface IdentityMessageData {
   accountId?: string
   email?: string
   phone?: string
-  target?: string
+  purpose?: string
   uid?: string
   changed?: {
     old: string
