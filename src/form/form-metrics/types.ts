@@ -1,7 +1,9 @@
 import { type FormStatus } from '~/src/common/enums.js'
 import {
   type FormMetricName,
-  type FormMetricType
+  type FormMetricType,
+  type FunctionalAreaSubType,
+  type SigninMetricName
 } from '~/src/form/form-metrics/enums.js'
 
 export interface FormTotalMetric {
@@ -66,3 +68,31 @@ export type FormMetric =
   | FormTotalsMetric
   | FormOverviewMetric
   | FormTimelineMetric
+
+export interface SigninTimelineMetric {
+  type: FormMetricType.TimelineMetric
+  metricName: SigninMetricName
+  metricValue: number
+  createdAt: Date
+}
+
+export type FunctionalAreaMetricName = SigninMetricName
+// Add 'copy' and 'edit' metric names as needed
+
+export interface FunctionalAreaTotalMetric {
+  count: number
+}
+
+export interface FunctionalAreaTotalsMetric {
+  type: FormMetricType.FunctionalAreaTotalsMetric
+  subType: FunctionalAreaSubType
+  last7Days?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
+  prev7Days?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
+  last30Days?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
+  prev30Days?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
+  lastYear?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
+  prevYear?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
+  allTime?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
+  updatedAt: Date
+  earliestDate: Date
+}
