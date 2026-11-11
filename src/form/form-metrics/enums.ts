@@ -15,7 +15,7 @@ export enum FormMetricName {
   TimeToPublish = 'TimeToPublish'
 }
 
-export enum FunctionalAreaSubType {
+export enum FunctionalAreaType {
   Signin = 'Signin'
   // Add these later as needed
   // CopyAnswers = 'copy-answers',
