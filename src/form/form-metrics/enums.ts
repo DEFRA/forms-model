@@ -16,10 +16,8 @@ export enum FormMetricName {
 }
 
 export enum FunctionalAreaType {
-  Signin = 'Signin'
-  // Add these later as needed
-  // CopyAnswers = 'copy-answers',
-  // EditAndResubmit = 'edit-and-resubmit'
+  Signin = 'Signin',
+  CopyAnswers = 'CopyAnswers'
 }
 
 export enum SigninMetricName {
@@ -33,4 +31,9 @@ export enum SigninMetricName {
   // Add these when 'forgotten details' journey is implemented
   // ForgottenDetailsJourney = 'ForgottenDetailsJourney',
   // PhoneNumberNotAssociatedWithAccount = 'PhoneNumberNotAssociatedWithAccount'
+}
+
+export enum CopyAnswersMetricName {
+  CopyAnswersSubmission = 'CopyAnswersSubmission',
+  CopyAnswersForm = 'CopyAnswersForm'
 }

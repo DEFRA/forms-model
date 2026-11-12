@@ -1,5 +1,6 @@
 import { type FormStatus } from '~/src/common/enums.js'
 import {
+  type CopyAnswersMetricName,
   type FormMetricName,
   type FormMetricType,
   type FunctionalAreaType,
@@ -69,15 +70,14 @@ export type FormMetric =
   | FormOverviewMetric
   | FormTimelineMetric
 
-export interface SigninTimelineMetric {
+export type FunctionalAreaMetricName = SigninMetricName | CopyAnswersMetricName
+
+export interface FunctionalAreaTimelineMetric {
   type: FormMetricType.TimelineMetric
-  metricName: SigninMetricName
+  metricName: FunctionalAreaMetricName
   metricValue: number
   createdAt: Date
 }
-
-export type FunctionalAreaMetricName = SigninMetricName
-// Add 'copy' and 'edit' metric names as needed
 
 export interface FunctionalAreaTotalMetric {
   count: number
@@ -93,6 +93,8 @@ export interface FunctionalAreaTotalsMetric {
   lastYear?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
   prevYear?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
   allTime?: Record<FunctionalAreaMetricName, FunctionalAreaTotalMetric>
+  liveSubmissions?: Record<string, number>
+  draftSubmissions?: Record<string, number>
   updatedAt: Date
   earliestDate: Date
 }
