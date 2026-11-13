@@ -74,6 +74,7 @@ export type FunctionalAreaMetricName = SigninMetricName | CopyAnswersMetricName
 
 export interface FunctionalAreaTimelineMetric {
   type: FormMetricType.TimelineMetric
+  formId?: string
   metricName: FunctionalAreaMetricName
   metricValue: number
   createdAt: Date

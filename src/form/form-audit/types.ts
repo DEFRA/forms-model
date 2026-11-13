@@ -86,6 +86,10 @@ export interface FormOfflineChanges {
   offline: boolean
 }
 
+export interface FormOptionChanges {
+  allowCopy: boolean
+}
+
 export interface FormTitleUpdatedMessageData extends FormMessageDataBase {
   changes: ChangesMessageData<FormTitleChanges>
 }
@@ -140,6 +144,10 @@ export interface FormUploadedMessageData extends FormMessageDataBase {
 
 export interface FormOfflineUpdatedMessageData extends FormMessageDataBase {
   changes: ChangesMessageData<FormOfflineChanges>
+}
+
+export interface FormOptionUpdatedMessageData extends FormMessageDataBase {
+  changes: ChangesMessageData<FormOptionChanges>
 }
 
 export interface FormFileDownloadedMessageData {
@@ -225,6 +233,7 @@ export type FormMessageChangesData =
   | FormSubmissionGuidanceUpdatedMessageData
   | FormUploadedMessageData
   | FormOfflineUpdatedMessageData
+  | FormOptionUpdatedMessageData
 
 export type FormMessageActivitiesData =
   | FormCreatedMessageData
@@ -455,6 +464,12 @@ export interface FormOfflineUpdatedMessage extends ManagerMessageBase {
   data: FormOfflineUpdatedMessageData
 }
 
+export interface FormOptionUpdatedMessage extends ManagerMessageBase {
+  category: AuditEventMessageCategory.FORM
+  type: AuditEventMessageType.FORM_OPTION_UPDATED
+  data: FormOptionUpdatedMessageData
+}
+
 export interface EntitlementCreatedMessage extends EntitlementMessageBase {
   category: AuditEventMessageCategory.ENTITLEMENT
   type: AuditEventMessageType.ENTITLEMENT_CREATED
@@ -621,6 +636,7 @@ export type AuditMessage =
   | FormMigratedMessage
   | FormUpdatedMessage
   | FormOfflineUpdatedMessage
+  | FormOptionUpdatedMessage
   | EntitlementCreatedMessage
   | EntitlementUpdatedMessage
   | EntitlementDeletedMessage
