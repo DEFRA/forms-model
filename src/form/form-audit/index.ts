@@ -26,6 +26,8 @@ import {
   type FormNotificationEmailUpdatedMessageData,
   type FormOfflineChanges,
   type FormOfflineUpdatedMessageData,
+  type FormOptionChanges,
+  type FormOptionUpdatedMessageData,
   type FormOrganisationChanges,
   type FormOrganisationUpdatedMessageData,
   type FormOutputChanges,
@@ -300,6 +302,13 @@ export const formOfflineChanges = Joi.object<FormOfflineChanges>()
   })
   .required()
   .description('Changes schema for FORM_OFFLINE_UPDATED event')
+
+export const formOptionChanges = Joi.object<FormOptionChanges>()
+  .keys({
+    allowCopy: Joi.boolean().required()
+  })
+  .required()
+  .description('Changes schema for FORM_OPTION_UPDATED event')
 
 export const entitlementMessageData = Joi.object<EntitlementMessageData>().keys(
   {
@@ -638,6 +647,15 @@ export const messageSchema = Joi.object<AuditMessage>()
             FormOfflineChanges,
             FormOfflineUpdatedMessageData
           >(formOfflineChanges)
+        },
+        {
+          is: Joi.string()
+            .trim()
+            .valid(AuditEventMessageType.FORM_OPTION_UPDATED),
+          then: formChangesMessageData<
+            FormOptionChanges,
+            FormOptionUpdatedMessageData
+          >(formOptionChanges)
         }
       ],
       otherwise: Joi.forbidden()
