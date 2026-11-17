@@ -37,6 +37,7 @@ export interface FormTotalsMetric {
 export interface FormOverviewMetric {
   type: FormMetricType.OverviewMetric
   formId: string
+  formName?: string
   formStatus: FormStatus
   summaryMetrics: Record<string, number | string | string[]>
   featureMetrics: Record<string, Map<string, number>>
