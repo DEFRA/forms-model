@@ -44,7 +44,7 @@
   "dependencies": {
     "@joi/date": "^3.0.0",
     "marked": "^15.0.12",
-    "nanoid": "^5.0.7",
+    "nanoid": "^6.0.2",
     "slug": "^11.0.0",
     "uuid": "^11.1.0"
   },
