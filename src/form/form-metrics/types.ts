@@ -78,6 +78,9 @@ export interface FunctionalAreaTimelineMetric {
   formId?: string
   metricName: FunctionalAreaMetricName
   metricValue: number
+  metricContext?: {
+    formIds: string[]
+  }
   createdAt: Date
 }
 
